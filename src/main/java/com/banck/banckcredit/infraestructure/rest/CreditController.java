@@ -119,6 +119,10 @@ public class CreditController {
             if (CustomerType.PERSONAL.equals(m.getCustomerType())
                     || CustomerType.PERSONAL_VIP.equals(m.getCustomerType())) {
 
+                if (SunatUtils.isRUCValid(m.getCustomer())) {
+                    return Mono.just(ResponseEntity.ok("El RUC " + m.getCustomer() + " es solo para empresas, debe registrarse con DNI."));
+                }
+
             } else {
                 if (!SunatUtils.isRUCValid(m.getCustomer())) {
                     return Mono.just(ResponseEntity.ok("El RUC " + m.getCustomer() + " de la Empresa No es Válido!!"));
